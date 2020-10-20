@@ -1,0 +1,7 @@
+Best REST API design practices
+https://restfulapi.net/resource-naming/
+https://restfulapi.net/tutorial/rest/
+https://codeburst.io/spring-boot-rest-microservices-best-practices-2a6e50797115
+https://github.com/ehabqadah/spring-boot-microservices-best-practices
+
+https://dev.to/lbelkind/strategies-for-using-postgresql-as-a-database-for-multi-tenant-services-4abd
