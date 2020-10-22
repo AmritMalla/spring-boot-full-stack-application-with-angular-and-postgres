@@ -1,7 +1,7 @@
 package com.amt.example.fullstackapp.dao.impl;
 
-import com.amt.example.fullstackapp.entity.Address;
 import com.amt.example.fullstackapp.dao.AddressDAO;
+import com.amt.example.fullstackapp.entity.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,16 +23,16 @@ public class AddressDAOImpl implements AddressDAO<Address> {
         Boolean exist = jdbcTemplate.queryForObject("SELECT EXISTS (SELECT FROM addresses WHERE user_id = ?)",
                 Boolean.class,
                 id);
-        if(exist != null){
+        if (exist != null) {
             return exist;
-        }else {
+        } else {
             return false;
         }
     }
 
     @Override
     public int count() {
-        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM addresses",Integer.class);
+        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM addresses", Integer.class);
         if (value != null) {
             return value;
         } else {
@@ -67,7 +67,7 @@ public class AddressDAOImpl implements AddressDAO<Address> {
     @Override
     public List<Address> findAll() {
         return jdbcTemplate.query("SELECT * FROM addresses",
-                (rs,rowNum)-> new Address(
+                (rs, rowNum) -> new Address(
                         rs.getLong("user_id"),
                         rs.getString("street"),
                         rs.getString("city"),
@@ -79,7 +79,7 @@ public class AddressDAOImpl implements AddressDAO<Address> {
     public List<Address> findAllByCity(String city) {
         return jdbcTemplate.query("SELECT * FROM addresses WHERE city = ?",
                 new Object[]{city},
-                (rs,rowNum)-> new Address(
+                (rs, rowNum) -> new Address(
                         rs.getLong("user_id"),
                         rs.getString("street"),
                         rs.getString("city"),
@@ -91,7 +91,7 @@ public class AddressDAOImpl implements AddressDAO<Address> {
     public List<Address> findAllByState(String state) {
         return jdbcTemplate.query("SELECT * FROM addresses WHERE state = ?",
                 new Object[]{state},
-                (rs,rowNum)-> new Address(
+                (rs, rowNum) -> new Address(
                         rs.getLong("user_id"),
                         rs.getString("street"),
                         rs.getString("city"),

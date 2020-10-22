@@ -1,9 +1,6 @@
 package com.amt.example.fullstackapp.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Created by Amrit Malla
@@ -13,19 +10,19 @@ import java.util.Date;
 public class UserDTO {
 
     private long id;
-   
+
     private String fullName;
-   
+
     private String username;
-   
+
     private boolean enabled;
-   
-    private Date lastLogin;
+
+    private LocalDateTime lastLogin;
 
     public UserDTO() {
     }
 
-    public UserDTO(long id, String fullName, String username, boolean enabled, Date lastLogin) {
+    public UserDTO(long id, String fullName, String username, boolean enabled, LocalDateTime lastLogin) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -65,11 +62,11 @@ public class UserDTO {
         this.enabled = enabled;
     }
 
-    public Date getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 }

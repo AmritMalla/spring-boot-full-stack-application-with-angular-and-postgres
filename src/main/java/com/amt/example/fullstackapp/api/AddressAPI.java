@@ -48,7 +48,7 @@ public class AddressAPI {
             throw new InvalidUserIdException("User with given id : " + dto.getUserId() + " doesn't exist");
         }
 
-        if(addressService.userIdAlreadyExist(dto.getUserId())){
+        if (addressService.existByUserId(dto.getUserId())) {
             throw new UserIdAlreadyExistException("User with given id : " + dto.getUserId() + " already exist");
         }
 
@@ -60,19 +60,27 @@ public class AddressAPI {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateAddress(@Valid @RequestBody AddressRequestDTO addressRequestDTO) {
-        if (addressService.update(addressRequestDTO) == 1) {
-            return ResponseEntity.ok("Successfully updated");
+    public ResponseEntity<ApiResponseMessage> updateAddress(@Valid @RequestBody AddressRequestDTO dto) {
+        if (!userService.existById(dto.getUserId())) {
+            throw new InvalidUserIdException("User with given id : " + dto.getUserId() + " doesn't exist");
         }
-        return ResponseEntity.badRequest().body("Failed to update");
+
+        ApiResponseMessage responseMessage = new ApiResponseMessage();
+        addressService.update(dto);
+        responseMessage.setMessage("Address successfully updated");
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
     @DeleteMapping(USER_ID_VARIABLE)
-    public ResponseEntity<String> deleteAddress(@PathVariable("userId") Long userId) {
-        if (addressService.delete(userId) == 1) {
-            return ResponseEntity.ok("Successfully Deleted");
+    public ResponseEntity<ApiResponseMessage> deleteAddress(@PathVariable("userId") Long userId) {
+        if(!addressService.existByUserId(userId)){
+            throw new InvalidUserIdException("The userId : " + userId + " not found.");
         }
-        return ResponseEntity.badRequest().body("Failed to delete");
+        addressService.delete(userId);
+        ApiResponseMessage responseMessage = new ApiResponseMessage();
+        responseMessage.setMessage("Address successfully deleted");
+        return new ResponseEntity<>(responseMessage,HttpStatus.OK);
+
     }
 
 

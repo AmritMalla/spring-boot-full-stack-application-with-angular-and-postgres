@@ -6,6 +6,7 @@ import com.amt.example.fullstackapp.model.ReviewDTO;
 import com.amt.example.fullstackapp.model.request.ReviewRequestDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -38,7 +39,7 @@ public class ReviewConverter {
         review.setBookId(dto.getBookId());
         review.setContent(dto.getContent());
         review.setPublishedDate(dto.getPublishedDate()==null?
-                new Date(System.currentTimeMillis()):dto.getPublishedDate()); //set to current timestamp
+                LocalDateTime.now():dto.getPublishedDate()); //set to current timestamp
         review.setRating(dto.getRating());
         review.setReviewerName(dto.getReviewerName());
         return review;

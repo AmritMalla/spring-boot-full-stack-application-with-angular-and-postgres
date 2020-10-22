@@ -1,14 +1,13 @@
 package com.amt.example.fullstackapp.dao.impl;
 
-import com.amt.example.fullstackapp.dao.BookDAO;
 import com.amt.example.fullstackapp.dao.UserDAO;
-import com.amt.example.fullstackapp.entity.User;
 import com.amt.example.fullstackapp.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Amrit Malla
@@ -30,14 +29,14 @@ public class UserDAOImpl implements UserDAO<User> {
         Boolean exist = jdbcTemplate.queryForObject("SELECT EXISTS (SELECT FROM users WHERE id = ?)",
                 Boolean.class,
                 id);
-        if(exist != null)
+        if (exist != null)
             return exist;
         else return false;
     }
 
     @Override
     public int count() {
-        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM users",Integer.class);
+        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM users", Integer.class);
         if (value != null) {
             return value;
         } else {
@@ -71,12 +70,12 @@ public class UserDAOImpl implements UserDAO<User> {
     @Override
     public List<User> findAll() {
         return jdbcTemplate.query("SELECT * FROM users",
-                (rs,rowNum)-> new User(
+                (rs, rowNum) -> new User(
                         rs.getLong("id"),
                         rs.getString("full_name"),
                         rs.getString("username"),
                         rs.getBoolean("enabled"),
-                        rs.getTimestamp("last_login")
+                        rs.getTimestamp("last_login").toLocalDateTime()
                 ));
     }
 
@@ -89,8 +88,32 @@ public class UserDAOImpl implements UserDAO<User> {
                         rs.getString("full_name"),
                         rs.getString("username"),
                         rs.getBoolean("enabled"),
-                        rs.getTimestamp("last_login")
+                        rs.getTimestamp("last_login").toLocalDateTime()
                 ));
     }
 
+    @Override
+    public Optional<User> getByUsername(String username) {
+        return Optional.ofNullable(
+                jdbcTemplate.queryForObject("SELECT * FROM users WHERE username = ?",
+                        new Object[]{username},
+                        (rs, rowNum) -> new User(
+                                rs.getLong("id"),
+                                rs.getString("full_name"),
+                                rs.getString("username"),
+                                rs.getBoolean("enabled"),
+                                rs.getTimestamp("last_login").toLocalDateTime()
+                        ))
+        );
+    }
+
+    @Override
+    public Boolean existByUsername(String username) {
+        Boolean exist = jdbcTemplate.queryForObject("SELECT EXISTS (SELECT FROM users WHERE username = ?)",
+                Boolean.class,
+                username);
+        if (exist != null)
+            return exist;
+        else return false;
+    }
 }

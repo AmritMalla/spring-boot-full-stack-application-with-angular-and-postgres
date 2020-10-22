@@ -1,6 +1,6 @@
 package com.amt.example.fullstackapp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Amrit Malla
@@ -8,18 +8,19 @@ import java.util.Date;
  * time : 12:01 PM
  */
 public class BookDTO {
+
     private long id;
 
     private String title;
 
     private String author;
 
-    private Date publishedDate;
+    private LocalDate publishedDate;
 
     public BookDTO() {
     }
 
-    public BookDTO(long id, String title, String author, Date publishedDate) {
+    public BookDTO(long id, String title, String author, LocalDate publishedDate) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -50,11 +51,11 @@ public class BookDTO {
         this.author = author;
     }
 
-    public Date getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 }

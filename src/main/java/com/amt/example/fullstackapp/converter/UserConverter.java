@@ -5,6 +5,7 @@ import com.amt.example.fullstackapp.model.UserDTO;
 import com.amt.example.fullstackapp.model.request.UserRequestDTO;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -33,7 +34,7 @@ public class UserConverter {
         user.setFullName(dto.getFullName());
         user.setEnabled(dto.isEnabled());
         user.setUsername(dto.getUsername());
-        user.setLastLogin(dto.getLastLogin()==null?new Date(System.currentTimeMillis()):dto.getLastLogin());
+        user.setLastLogin(dto.getLastLogin()==null? LocalDateTime.now() :dto.getLastLogin());
         return user;
     }
 }

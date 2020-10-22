@@ -4,10 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Table(value = "books")
 public class Book {
+
     @Id
     @Column
     private long id;
@@ -19,12 +20,12 @@ public class Book {
     private String author;
 
     @Column
-    private Date publishedDate;
+    private LocalDate publishedDate;
 
     public Book() {
     }
 
-    public Book(long id, String title, String author, Date publishedDate) {
+    public Book(long id, String title, String author, LocalDate publishedDate) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -55,11 +56,11 @@ public class Book {
         this.author = author;
     }
 
-    public Date getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * time : 6:25 AM
  */
 @Repository
-public class ReviewDAOImpl implements ReviewDAO<Review>  {
+public class ReviewDAOImpl implements ReviewDAO<Review> {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -28,14 +28,14 @@ public class ReviewDAOImpl implements ReviewDAO<Review>  {
         Boolean exist = jdbcTemplate.queryForObject("SELECT EXISTS (SELECT FROM reviews WHERE id = ?)",
                 Boolean.class,
                 id);
-        if(exist != null)
+        if (exist != null)
             return exist;
         else return false;
     }
 
     @Override
     public int count() {
-        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM reviews",Integer.class);
+        Integer value = jdbcTemplate.queryForObject("SELECT count(*) FROM reviews", Integer.class);
         if (value != null) {
             return value;
         } else {
@@ -72,13 +72,13 @@ public class ReviewDAOImpl implements ReviewDAO<Review>  {
     @Override
     public List<Review> findAll() {
         return jdbcTemplate.query("SELECT * FROM reviews",
-                (rs,rowNum)-> new Review(
+                (rs, rowNum) -> new Review(
                         rs.getLong("id"),
                         rs.getLong("book_id"),
                         rs.getString("reviewer_name"),
                         rs.getString("content"),
                         rs.getInt("rating"),
-                        rs.getTimestamp("published_date")
+                        rs.getTimestamp("published_date").toLocalDateTime()
                 ));
     }
 
@@ -92,7 +92,7 @@ public class ReviewDAOImpl implements ReviewDAO<Review>  {
                         rs.getString("reviewer_name"),
                         rs.getString("content"),
                         rs.getInt("rating"),
-                        rs.getTimestamp("published_date")
+                        rs.getTimestamp("published_date").toLocalDateTime()
                 ));
     }
 

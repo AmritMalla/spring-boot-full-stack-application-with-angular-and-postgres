@@ -1,9 +1,7 @@
 package com.amt.example.fullstackapp.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
+import java.time.LocalDateTime;
 
-import java.util.Date;
 
 /**
  * Created by Amrit Malla
@@ -22,12 +20,12 @@ public class ReviewDTO {
 
     private int rating;
 
-    private Date publishedDate;
+    private LocalDateTime publishedDate;
 
     public ReviewDTO() {
     }
 
-    public ReviewDTO(long id, long bookId, String reviewerName, String content, int rating, Date publishedDate) {
+    public ReviewDTO(long id, long bookId, String reviewerName, String content, int rating, LocalDateTime publishedDate) {
         this.id = id;
         this.bookId = bookId;
         this.reviewerName = reviewerName;
@@ -76,11 +74,11 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
-    public Date getPublishedDate() {
+    public LocalDateTime getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
     }
 }

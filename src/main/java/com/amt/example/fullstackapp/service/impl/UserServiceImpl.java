@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> getById(Long id) {
-        if(userDAO.exists(id)){
+        if (userDAO.exists(id)) {
             UserDTO dto = userConverter.entityToDto(userDAO.findById(id));
             return Optional.of(dto);
         }
@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int update(UserDTO dto) {
-        return userDAO.update(userConverter.dtoToEntity(dto));
+    public int update(UserRequestDTO dto) {
+        return userDAO.update(userConverter.requestDTOtoEntity(dto));
     }
 
     @Override
     public int delete(Long id) {
-        if(userDAO.exists(id)){
+        if (userDAO.exists(id)) {
             return userDAO.deleteById(id);
         }
         return 0;
@@ -55,5 +55,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existById(Long id) {
         return userDAO.exists(id);
+    }
+
+    @Override
+    public Optional<UserDTO> getByUsername(String username) {
+        Optional<User> optional = userDAO.getByUsername(username);
+        UserDTO dto = null;
+        if (optional.isPresent()) {
+            dto = userConverter.entityToDto(optional.get());
+        }
+        return Optional.ofNullable(dto);
+    }
+
+    @Override
+    public boolean existByUsername(String username) {
+        return userDAO.existByUsername(username);
     }
 }

@@ -53,7 +53,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public boolean userIdAlreadyExist(Long id) {
+    public boolean existByUserId(Long id) {
         return addressDAO.exists(id);
     }
 }

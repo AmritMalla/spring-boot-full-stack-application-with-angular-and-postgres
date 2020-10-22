@@ -13,8 +13,10 @@ public interface CheckoutService {
 
     int save(CheckoutRequestDTO dto);
 
-    int update(CheckoutDTO dto);
+    int update(CheckoutRequestDTO dto);
 
     int delete(Long id);
+
+    boolean existById(Long id);
 
 }

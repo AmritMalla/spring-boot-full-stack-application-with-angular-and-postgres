@@ -40,15 +40,17 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public int update(CheckoutDTO dto) {
-        return checkoutDAO.update(checkoutConverter.dtoToEntity(dto));
+    public int update(CheckoutRequestDTO dto) {
+        return checkoutDAO.update(checkoutConverter.requestDTOtoEntity(dto));
     }
 
     @Override
     public int delete(Long id) {
-        if(checkoutDAO.exists(id)){
-            return checkoutDAO.deleteById(id);
-        }
-        return 0;
+        return checkoutDAO.deleteById(id);
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return checkoutDAO.exists(id);
     }
 }

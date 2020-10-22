@@ -72,8 +72,8 @@ public class CheckoutDAOImpl implements CheckoutDAO<Checkout>  {
                         rs.getLong("id"),
                         rs.getLong("user_id"),
                         rs.getLong("book_id"),
-                        rs.getDate("checkout_date"),
-                        rs.getDate("return_date")
+                        rs.getDate("checkout_date").toLocalDate(),
+                        rs.getDate("return_date").toLocalDate()
                 ));
     }
 
@@ -85,8 +85,8 @@ public class CheckoutDAOImpl implements CheckoutDAO<Checkout>  {
                         rs.getLong("id"),
                         rs.getLong("user_id"),
                         rs.getLong("book_id"),
-                        rs.getDate("checkout_date"),
-                        rs.getDate("return_date")
+                        rs.getDate("checkout_date").toLocalDate(),
+                        rs.getDate("return_date").toLocalDate()
                 ));
     }
 

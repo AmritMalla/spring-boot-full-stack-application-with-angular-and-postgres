@@ -1,13 +1,16 @@
 package com.amt.example.fullstackapp.api;
 
+import com.amt.example.fullstackapp.exception.ResourceNotFoundException;
 import com.amt.example.fullstackapp.model.UserDTO;
 import com.amt.example.fullstackapp.model.request.UserRequestDTO;
+import com.amt.example.fullstackapp.responseMessage.ApiResponseMessage;
 import com.amt.example.fullstackapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 import static com.amt.example.fullstackapp.constants.URLConstants.*;
@@ -24,33 +27,43 @@ public class UserAPI {
     }
 
     @GetMapping(ID_VARIABLE)
-    public ResponseEntity<UserDTO> getUserById(@PathVariable("id")Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
         Optional<UserDTO> optional = userService.getById(id);
-        return optional.map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK)).orElseGet(() -> new ResponseEntity("Id : " + id + " not found", HttpStatus.BAD_REQUEST));
+        if (!optional.isPresent()) {
+            throw new ResourceNotFoundException("Id : " + id + " not found");
+        }
+        return new ResponseEntity<>(optional.get(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserRequestDTO userRequestDTO){
-        if(userService.save(userRequestDTO) == 1){
-            return ResponseEntity.ok("Successfully registered");
-        }
-        return ResponseEntity.badRequest().body("Failed to register");
+    public ResponseEntity<ApiResponseMessage> createUser(@RequestBody UserRequestDTO dto) {
+        ApiResponseMessage responseMessage = new ApiResponseMessage();
+        userService.save(dto);
+        responseMessage.setMessage("User successfully registered");
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO){
-        if(userService.update(userDTO) == 1){
-            return ResponseEntity.ok("Successfully updated");
+    public ResponseEntity<ApiResponseMessage> updateUser(@Valid @RequestBody UserRequestDTO dto) {
+        if (userService.existById(dto.getId())) {
+            throw new ResourceNotFoundException("User with id " + dto.getId() + " not found");
         }
-        return ResponseEntity.badRequest().body("Failed to update");
+        ApiResponseMessage responseMessage = new ApiResponseMessage();
+        userService.update(dto);
+        responseMessage.setMessage("User successfully registered");
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+
     }
 
     @DeleteMapping(ID_VARIABLE)
-    public ResponseEntity<String> deleteUser(@PathVariable("id")Long id){
-        if(userService.delete(id) == 1){
-            return ResponseEntity.ok("Successfully Deleted");
+    public ResponseEntity<ApiResponseMessage> deleteUser(@PathVariable("id") Long id) {
+        if (!userService.existById(id)) {
+            throw new ResourceNotFoundException("User with id : " + id + " doesn't exist");
         }
-        return ResponseEntity.badRequest().body("Failed to delete");
+        userService.delete(id);
+        ApiResponseMessage responseMessage = new ApiResponseMessage();
+        responseMessage.setMessage("Address successfully deleted");
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }
 
 

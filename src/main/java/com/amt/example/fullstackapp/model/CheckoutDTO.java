@@ -1,8 +1,6 @@
 package com.amt.example.fullstackapp.model;
 
-import org.springframework.data.relational.core.mapping.Column;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Amrit Malla
@@ -17,14 +15,14 @@ public class CheckoutDTO {
 
     private long bookId;
 
-    private Date checkoutDate;
+    private LocalDate checkoutDate;
 
-    private Date returnDate;
+    private LocalDate returnDate;
 
     public CheckoutDTO() {
     }
 
-    public CheckoutDTO(long id, long userId, long bookId, Date checkoutDate, Date returnDate) {
+    public CheckoutDTO(long id, long userId, long bookId, LocalDate checkoutDate, LocalDate returnDate) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
@@ -56,19 +54,19 @@ public class CheckoutDTO {
         this.bookId = bookId;
     }
 
-    public Date getCheckoutDate() {
+    public LocalDate getCheckoutDate() {
         return checkoutDate;
     }
 
-    public void setCheckoutDate(Date checkoutDate) {
+    public void setCheckoutDate(LocalDate checkoutDate) {
         this.checkoutDate = checkoutDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 }

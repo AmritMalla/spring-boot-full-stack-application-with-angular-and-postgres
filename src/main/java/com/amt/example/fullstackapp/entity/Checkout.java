@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table(value = "checkouts")
@@ -20,15 +21,15 @@ public class Checkout {
     private long bookId;
 
     @Column
-    private Date checkoutDate;
+    private LocalDate checkoutDate;
 
     @Column
-    private Date returnDate;
+    private LocalDate returnDate;
 
     public Checkout() {
     }
 
-    public Checkout(long id, long userId, long bookId, Date checkoutDate, Date returnDate) {
+    public Checkout(long id, long userId, long bookId, LocalDate checkoutDate, LocalDate returnDate) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
@@ -60,19 +61,19 @@ public class Checkout {
         this.bookId = bookId;
     }
 
-    public Date getCheckoutDate() {
+    public LocalDate getCheckoutDate() {
         return checkoutDate;
     }
 
-    public void setCheckoutDate(Date checkoutDate) {
+    public void setCheckoutDate(LocalDate checkoutDate) {
         this.checkoutDate = checkoutDate;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 }

@@ -13,8 +13,10 @@ public interface BookService {
 
     int save(BookRequestDTO dto);
 
-    int update(BookDTO dto);
+    int update(BookRequestDTO dto);
 
     int delete(Long id);
+
+    boolean existById(Long id);
 
 }

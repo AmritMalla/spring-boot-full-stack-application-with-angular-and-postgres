@@ -20,6 +20,9 @@ public class BookConverter {
 
     public Book requestDTOtoEntity(BookRequestDTO dto) {
         Book book = new Book();
+        if(dto.getId() != null){
+            book.setId(dto.getId());
+        }
         book.setAuthor(dto.getAuthor());
         book.setTitle(dto.getTitle());
         book.setPublishedDate(dto.getPublishedDate());

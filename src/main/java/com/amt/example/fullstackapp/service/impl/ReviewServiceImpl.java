@@ -27,7 +27,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Optional<ReviewDTO> getById(Long id) {
-        if(reviewDAO.exists(id)){
+        if (reviewDAO.exists(id)) {
             ReviewDTO dto = reviewConverter.entityToDto(reviewDAO.findById(id));
             return Optional.of(dto);
         }
@@ -40,15 +40,20 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public int update(ReviewDTO dto) {
-        return reviewDAO.update(reviewConverter.dtoToEntity(dto));
+    public int update(ReviewRequestDTO dto) {
+        return reviewDAO.update(reviewConverter.requestDTOtoEntity(dto));
     }
 
     @Override
     public int delete(Long id) {
-        if(reviewDAO.exists(id)){
+        if (reviewDAO.exists(id)) {
             return reviewDAO.deleteById(id);
         }
         return 0;
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return reviewDAO.exists(id);
     }
 }

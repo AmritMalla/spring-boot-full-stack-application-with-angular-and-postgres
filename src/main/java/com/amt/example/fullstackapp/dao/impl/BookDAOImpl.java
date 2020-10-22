@@ -73,7 +73,7 @@ public class BookDAOImpl implements BookDAO<Book>  {
                         rs.getLong("id"),
                         rs.getString("title"),
                         rs.getString("author"),
-                        rs.getDate("published_date")
+                        rs.getDate("published_date").toLocalDate()
                 ));
     }
 
@@ -85,7 +85,7 @@ public class BookDAOImpl implements BookDAO<Book>  {
                         rs.getLong("id"),
                         rs.getString("title"),
                         rs.getString("author"),
-                        rs.getDate("published_date")
+                        rs.getDate("published_date").toLocalDate()
                 ));
     }
 

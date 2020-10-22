@@ -13,8 +13,10 @@ public interface ReviewService {
 
     int save(ReviewRequestDTO dto);
 
-    int update(ReviewDTO dto);
+    int update(ReviewRequestDTO dto);
 
     int delete(Long id);
+
+    boolean existById(Long id);
 
 }

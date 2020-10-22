@@ -16,6 +16,6 @@ public interface AddressService {
 
     int delete(Long id);
 
-    boolean userIdAlreadyExist(Long id);
+    boolean existByUserId(Long id);
 
 }

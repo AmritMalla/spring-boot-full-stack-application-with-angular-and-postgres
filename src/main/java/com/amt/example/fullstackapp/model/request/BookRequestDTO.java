@@ -5,9 +5,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class BookRequestDTO {
+
+    private Long id;
 
     @JsonProperty(required = true)
     @NotBlank
@@ -20,7 +23,15 @@ public class BookRequestDTO {
     @JsonProperty(required = true)
     @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date publishedDate;
+    private LocalDate publishedDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -38,11 +49,11 @@ public class BookRequestDTO {
         this.author = author;
     }
 
-    public Date getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
 }

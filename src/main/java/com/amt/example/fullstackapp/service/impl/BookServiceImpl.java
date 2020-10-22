@@ -40,8 +40,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int update(BookDTO dto) {
-        return bookDAO.update(bookConverter.dtoToEntity(dto));
+    public int update(BookRequestDTO dto) {
+        return bookDAO.update(bookConverter.requestDTOtoEntity(dto));
     }
 
     @Override
@@ -50,5 +50,10 @@ public class BookServiceImpl implements BookService {
             return bookDAO.deleteById(id);
         }
         return 0;
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return bookDAO.exists(id);
     }
 }

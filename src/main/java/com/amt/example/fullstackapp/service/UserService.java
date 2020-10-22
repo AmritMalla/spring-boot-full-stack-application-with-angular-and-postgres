@@ -13,10 +13,14 @@ public interface UserService {
 
     int save(UserRequestDTO dto);
 
-    int update(UserDTO dto);
+    int update(UserRequestDTO dto);
 
     int delete(Long id);
 
     boolean existById(Long id);
+
+    Optional<UserDTO> getByUsername(String username);
+
+    boolean existByUsername(String username);
 
 }

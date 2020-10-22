@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ReviewRequestDTO {
+
+    private Long id;
+
     @JsonProperty(required = true)
     @NotNull
     private Long bookId;
@@ -23,7 +26,15 @@ public class ReviewRequestDTO {
     private Integer rating;
 
     @JsonProperty
-    private Date publishedDate;
+    private LocalDateTime publishedDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getBookId() {
         return bookId;
@@ -57,11 +68,11 @@ public class ReviewRequestDTO {
         this.rating = rating;
     }
 
-    public Date getPublishedDate() {
+    public LocalDateTime getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
     }
 }

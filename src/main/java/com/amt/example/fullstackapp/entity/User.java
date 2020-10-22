@@ -4,10 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Table(value = "users")
-public  class User {
+public class User {
 
     @Id
     @Column
@@ -23,12 +23,12 @@ public  class User {
     private boolean enabled;
 
     @Column
-    private Date lastLogin;
+    private LocalDateTime lastLogin;
 
     public User() {
     }
 
-    public User(long id, String fullName, String username, boolean enabled, Date lastLogin) {
+    public User(long id, String fullName, String username, boolean enabled, LocalDateTime lastLogin) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -68,11 +68,11 @@ public  class User {
         this.enabled = enabled;
     }
 
-    public Date getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 }
