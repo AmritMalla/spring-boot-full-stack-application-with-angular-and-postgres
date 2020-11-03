@@ -9,7 +9,9 @@ import com.amt.example.fullstackapp.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -32,6 +34,11 @@ public class AddressServiceImpl implements AddressService {
             return Optional.of(dto);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<AddressDTO> getAll() {
+        return addressDAO.findAll().stream().map(s->addressConverter.entityToDto(s)).collect(Collectors.toList());
     }
 
     @Override

@@ -5,11 +5,14 @@ import com.amt.example.fullstackapp.model.UserDTO;
 import com.amt.example.fullstackapp.model.request.AddressRequestDTO;
 import com.amt.example.fullstackapp.model.request.UserRequestDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
 
     Optional<UserDTO> getById(Long id);
+
+    List<UserDTO> getAll();
 
     int save(UserRequestDTO dto);
 

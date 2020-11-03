@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 import static com.amt.example.fullstackapp.constants.URLConstants.*;
@@ -32,6 +33,11 @@ public class AddressAPI {
         this.userService = userService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<AddressDTO>> getAllAddress() {
+        return new ResponseEntity<>(addressService.getAll(), HttpStatus.OK);
+    }
+
     @GetMapping(USER_ID_VARIABLE)
     public ResponseEntity<AddressDTO> getAddressById(@PathVariable("userId") Long userId) {
         Optional<AddressDTO> optional = addressService.getById(userId);
@@ -39,7 +45,6 @@ public class AddressAPI {
             throw new ResourceNotFoundException("Address with id -- " + userId + " not found.");
         }
         return new ResponseEntity<>(optional.get(), HttpStatus.OK);
-
     }
 
     @PostMapping

@@ -9,7 +9,9 @@ import com.amt.example.fullstackapp.service.CheckoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
@@ -27,11 +29,16 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Override
     public Optional<CheckoutDTO> getById(Long id) {
-        if(checkoutDAO.exists(id)){
+        if (checkoutDAO.exists(id)) {
             CheckoutDTO dto = checkoutConverter.entityToDto(checkoutDAO.findById(id));
             return Optional.of(dto);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<CheckoutDTO> getAll() {
+        return checkoutDAO.findAll().stream().map(s -> checkoutConverter.entityToDto(s)).collect(Collectors.toList());
     }
 
     @Override

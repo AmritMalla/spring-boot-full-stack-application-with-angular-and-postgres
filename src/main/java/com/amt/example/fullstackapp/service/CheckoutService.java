@@ -5,11 +5,14 @@ import com.amt.example.fullstackapp.model.CheckoutDTO;
 import com.amt.example.fullstackapp.model.request.AddressRequestDTO;
 import com.amt.example.fullstackapp.model.request.CheckoutRequestDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CheckoutService {
 
     Optional<CheckoutDTO> getById(Long id);
+
+    List<CheckoutDTO> getAll();
 
     int save(CheckoutRequestDTO dto);
 

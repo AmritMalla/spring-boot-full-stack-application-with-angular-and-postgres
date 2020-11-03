@@ -2,6 +2,7 @@ package com.amt.example.fullstackapp.api;
 
 import com.amt.example.fullstackapp.exception.InvalidUserIdException;
 import com.amt.example.fullstackapp.exception.ResourceNotFoundException;
+import com.amt.example.fullstackapp.model.BookDTO;
 import com.amt.example.fullstackapp.model.ReviewDTO;
 import com.amt.example.fullstackapp.model.request.ReviewRequestDTO;
 import com.amt.example.fullstackapp.responseMessage.ApiResponseMessage;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 import static com.amt.example.fullstackapp.constants.URLConstants.*;
@@ -42,6 +44,11 @@ public class ReviewAPI {
             throw new ResourceNotFoundException("Id : " + id + " not found");
         }
         return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReviewDTO>> getAllBooks() {
+        return new ResponseEntity<>(reviewService.getAll(), HttpStatus.OK);
     }
 
     @PostMapping

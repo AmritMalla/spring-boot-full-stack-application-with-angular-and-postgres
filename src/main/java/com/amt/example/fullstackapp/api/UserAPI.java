@@ -1,6 +1,7 @@
 package com.amt.example.fullstackapp.api;
 
 import com.amt.example.fullstackapp.exception.ResourceNotFoundException;
+import com.amt.example.fullstackapp.model.BookDTO;
 import com.amt.example.fullstackapp.model.UserDTO;
 import com.amt.example.fullstackapp.model.request.UserRequestDTO;
 import com.amt.example.fullstackapp.responseMessage.ApiResponseMessage;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 import static com.amt.example.fullstackapp.constants.URLConstants.*;
@@ -33,6 +35,11 @@ public class UserAPI {
             throw new ResourceNotFoundException("Id : " + id + " not found");
         }
         return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllBooks() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
     @PostMapping

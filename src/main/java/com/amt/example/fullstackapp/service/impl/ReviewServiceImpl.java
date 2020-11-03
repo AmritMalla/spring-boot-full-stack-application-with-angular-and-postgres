@@ -9,7 +9,10 @@ import com.amt.example.fullstackapp.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -32,6 +35,11 @@ public class ReviewServiceImpl implements ReviewService {
             return Optional.of(dto);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<ReviewDTO> getAll() {
+        return reviewDAO.findAll().stream().map(s -> reviewConverter.entityToDto(s)).collect(Collectors.toList());
     }
 
     @Override

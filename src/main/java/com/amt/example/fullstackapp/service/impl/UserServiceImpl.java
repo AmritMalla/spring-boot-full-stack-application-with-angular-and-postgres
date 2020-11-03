@@ -9,7 +9,10 @@ import com.amt.example.fullstackapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +35,11 @@ public class UserServiceImpl implements UserService {
             return Optional.of(dto);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<UserDTO> getAll() {
+        return userDAO.findAll().stream().map(s -> userConverter.entityToDto(s)).collect(Collectors.toList());
     }
 
     @Override
